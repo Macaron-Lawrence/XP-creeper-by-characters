@@ -1,14 +1,20 @@
 from lxml import html
-from typing import Text
 import re
 import requests
 import json
 import math
 
-keywords = 'arknights'
+keywords = 'forced_orgasm'#关键词
 # +'+-rating%3A' + 'safe'
 
-def print33(indexnow,indextotal,title):
+heads = {
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36',
+    'PHPSESSID': 'rmhsof5bmdujqv6qhodr7ccbt2; comment_threshold=0; post_threshold=0; fringeBenefits=yup'
+    }
+rating = '+-rating%3A' + 'safe'
+host = 'https://gelbooru.com/index.php'
+
+def print33(indexnow,indextotal,title):#进度条
     A_count = math.floor(indexnow/indextotal*33)
     A = '#'*A_count
     B = '-'*(33-A_count)
@@ -17,23 +23,30 @@ def print33(indexnow,indextotal,title):
     print('>> 正在抓取 |' + A + B + '| '+ str(C) + '% | ' + title,flush=True)
 
 
-def getpagelinks(id,host,url,heads):
+def getpagelinksbyid(id,url):#通过获取页面的links
     _request = requests.get(host + url + str(id), headers = heads, timeout=(5,20))
     _content = html.fromstring(_request.content)
     _links = _content.xpath('//*[@id="container"]/main/div[7]/article/a/@href')
     return _links
 
-def getsearchids(terns,host,url,heads):
+def getpagelinks(url):#获取页面的links
+    _request = requests.get(url, headers = heads, timeout=(5,20))
+    _content = html.fromstring(_request.content)
+    _links = _content.xpath('//*[@id="container"]/main/div[7]/article/a/@href')
+    return _links
+
+
+def getsearchids(terns,url):#获取搜索需要的最大id
     searched = []
     if terns !=0:
         for i in range(0,terns):
-            _next = getpagelinks((i+1)*19992,host,url,heads)
+            _next = getpagelinksbyid((i+1)*19992,url)
             _next = re.search('(?<=(id=))\d+',_next[-1]).group()
             searched.append(_next)
     return searched
 
-def getsearchs(keywords,terns,host,url,heads):
-    searchids = getsearchids(terns,host,url,heads)
+def getsearchs(keywords,terns,url):#获取搜索关键字
+    searchids = getsearchids(terns,url)
     _keywords = []
     for i in range(0,len(searchids)+1):
         if not(searchids[0:1]):
@@ -47,13 +60,8 @@ def getsearchs(keywords,terns,host,url,heads):
                 _keywords.append(keywords + '+id:<' + searchids[i-1])
     return _keywords
 
-def getlinks(keywords):
-    heads = {
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36',
-    'PHPSESSID': 'rmhsof5bmdujqv6qhodr7ccbt2; comment_threshold=0; post_threshold=0; fringeBenefits=yup'
-    }
-    rating = '+-rating%3A' + 'safe'
-    host = 'https://gelbooru.com/index.php'
+def getlinks(keywords): #获取图片页链接
+
     url = '?page=post&s=list&tags='+keywords+'&pid='
     request = requests.get(host + url + '0', headers = heads, timeout=(5,20))
     content = html.fromstring(request.content)
@@ -61,7 +69,7 @@ def getlinks(keywords):
     lastpageid = re.search('(?<=(pid=))\d+', lastpage).group(0)
     terns = int(lastpageid)//19992
 
-    searches = getsearchs(keywords,terns,host,url,heads)
+    searches = getsearchs(keywords,terns,url)
     s_links = []
     _links = {
         'keywords':keywords,
@@ -77,9 +85,7 @@ def getlinks(keywords):
             s_links.append(host + '?page=post&s=list&tags=' + str(i) + '&pid=' + str(n*42))
     for m in s_links:
         print33(_counter,len(s_links),m)
-        __request = requests.get(m,headers = heads, timeout=(5,20))
-        __content = html.fromstring(__request.content)
-        _links['links'].extend(__content.xpath('//*[@id="container"]/main/div[7]/article/a/@href'))
+        _links['links'].extend(getpagelinks(m))
         _counter +=1
     with open('./links.json','w',encoding='utf-8') as file:
         file.write(json.dumps(_links))
