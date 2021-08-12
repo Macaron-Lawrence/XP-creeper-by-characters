@@ -1,19 +1,14 @@
+from getLinks import getlinks
 # from modules.getLinks import getlinks
-# from modules.getLinks import getlinks
+from os import times
 import requests
 from lxml import html
 import math
+import json
+import time
+from headers import headers
 
-links = [
-    'https://gelbooru.com/index.php?page=post&s=view&id=6349265&tags=arknights+rating%3Aexplicit',
-    'https://gelbooru.com/index.php?page=post&s=view&id=6349239&tags=arknights+rating%3Aexplicit'
-]  # getlinks()
-
-
-heads = {
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36',
-    'PHPSESSID': 'rmhsof5bmdujqv6qhodr7ccbt2; comment_threshold=0; post_threshold=0; fringeBenefits=yup'
-}
+heads = headers()
 
 
 def print33(indexnow, indextotal, title):  # 进度条
@@ -39,14 +34,17 @@ def getnotexist(lstnew, lstold):
     return lst
 
 
-def gettagsbycharacter(links):
+def gettagsbycharacter(keywords):
+    __links = getlinks(keywords)
+    links = __links['links']
     tags = {}
     _counter = 0
     last = {
         'tags': [],
         'source': '',
         'size': '',
-        'uploader': ''
+        'uploader': '',
+        'char': []
     }
 
     for link in links:
@@ -64,14 +62,20 @@ def gettagsbycharacter(links):
             '//*[@id="tag-list"]/li[contains(text(),"Posted: ")]/a/text()'))[0]
         _tags = content.xpath(
             '//*[@id="tag-list"]/li[@class="tag-type-general"]/a/text()')
-        if (_source, _size, _uploader) == (last['source'], last['size'], last['uploader']):
+        _char = content.xpath(
+                '//*[@id="tag-list"]/li[@class="tag-type-character"]/a/text()')
+        _ifcount = True
+        if (_source, _size, _uploader,_char) == (last['source'], last['size'], last['uploader'], last['char']):
             _tags = getnotexist(_tags, last['tags'])
-
+            _ifcount=False
+        else: _ifcount=True
         if not(copyright[0:1]):
             if 'nocopyright' not in tags:
                 tags['nocopyright'] = {}
+                tags['nocopyright']['count'] = 0
                 tags['nocopyright']['tags'] = []
             tags['nocopyright']['tags'].extend(_tags)
+            if _ifcount: tags['nocopyright']['count'] += 1
 
         elif copyright[0] != 'original':
             chars = content.xpath(
@@ -79,18 +83,23 @@ def gettagsbycharacter(links):
             for i in chars:
                 if i not in tags:
                     tags[i] = {}
+                    tags[i]['count'] = 0
                     tags[i]['tags'] = []
                 tags[i]['tags'].extend(_tags)
+                if _ifcount:tags[i]['count'] +=1
 
         else:
             if 'original' not in tags:
                 tags['original'] = {}
+                tags['original']['count'] = 0
                 tags['original']['tags'] = []
             tags['original']['tags'].extend(_tags)
+            if _ifcount:tags['original']['count']+=1
 
         (last['source'], last['size'], last['uploader'],
-         last['tags']) = (_source, _size, _uploader, _tags)
+         last['tags'], last['char']) = (_source, _size, _uploader, _tags,_char)
+    with open('./catch/gettags_' + str(math.floor(time.time())) + '.json','w',encoding='utf-8') as F:
+        F.write(json.dumps(tags))
     return tags
 
-
-# gettagsbycharacter(links)
+# print (gettagsbycharacter('dilation_belt'))

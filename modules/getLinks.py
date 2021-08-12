@@ -3,16 +3,15 @@ import re
 import requests
 import json
 import math
-
-keywords = 'forced_orgasm'  # 关键词
+# from modules.headers import headers
+from headers import headers
 # +'+-rating%3A' + 'safe'
+import time
 
-heads = {
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36',
-    'PHPSESSID': 'rmhsof5bmdujqv6qhodr7ccbt2; comment_threshold=0; post_threshold=0; fringeBenefits=yup'
-}
+heads = headers()
 rating = '+-rating%3A' + 'safe'
 host = 'https://gelbooru.com/index.php'
+# keywords = 'arknights' + rating  # 关键词
 
 
 def print33(indexnow, indextotal, title):  # 进度条
@@ -65,8 +64,8 @@ def getsearchs(keywords, terns, url):  # 获取搜索关键字
     return _keywords
 
 
-def getlinks(keywords):  # 获取图片页链接
-
+def getlinks(__keywords):  # 获取图片页链接
+    keywords = __keywords + rating
     url = '?page=post&s=list&tags='+keywords+'&pid='
     request = requests.get(host + url + '0', headers=heads, timeout=(5, 20))
     content = html.fromstring(request.content)
@@ -77,7 +76,7 @@ def getlinks(keywords):  # 获取图片页链接
     searches = getsearchs(keywords, terns, url)
     s_links = []
     _links = {
-        'keywords': keywords,
+        'keywords': __keywords,
         'links': []
     }
     _counter = 0
@@ -94,8 +93,9 @@ def getlinks(keywords):  # 获取图片页链接
         print33(_counter, len(s_links), m)
         _links['links'].extend(getpagelinks(m))
         _counter += 1
-    with open('./links.json', 'w', encoding='utf-8') as file:
+    with open('./catch/getlinks_'+ str(math.floor(time.time())) +'.json', 'w', encoding='utf-8') as file:
         file.write(json.dumps(_links))
 
+    return _links
 
-getlinks(keywords)
+# getlinks('forced_orgasm')
