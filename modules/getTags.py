@@ -1,12 +1,12 @@
-from getLinks import getlinks
-# from modules.getLinks import getlinks
+# from getLinks import getlinks
+from modules.getLinks import getlinks
 from os import times
 import requests
 from lxml import html
 import math
 import json
 import time
-from headers import headers
+from modules.headers import headers
 
 heads = headers()
 

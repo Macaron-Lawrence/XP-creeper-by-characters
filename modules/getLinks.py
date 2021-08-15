@@ -3,8 +3,8 @@ import re
 import requests
 import json
 import math
-# from modules.headers import headers
-from headers import headers
+from modules.headers import headers
+# from headers import headers
 # +'+-rating%3A' + 'safe'
 import time
 

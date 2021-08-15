@@ -1,7 +1,7 @@
 import json
 import math
 import time
-from getTags import gettagsbycharacter
+from modules.getTags import gettagsbycharacter
 # data = {
 #     'theresa (arknights)': {
 #         'count': 1,
@@ -37,8 +37,7 @@ def databuilder(keywords):
             _tag = data[char]['tags'][tags]
             ___1 = data[char]['count']
             _data[char][tags] = [_tag,round(_tag/data[char]['count']*100,3),round(_tag/data[char]['total']*100,3)]  #[数量，占作品比，占总tag数量比]
-    with open('./catch/dataanalyze_' + str(math.floor(time.time())) + '.json','w',encoding='utf-8') as F:
+    with open('./catch/dataanalyze_' + keywords + '#'+str(math.floor(time.time()))+'.json','w',encoding='utf-8') as F:
         F.write(json.dumps(_data))
     return _data
 
-print(databuilder('dilation_belt'))
