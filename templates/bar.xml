@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../templates/echarts.min.js"></script>
+</head>
+
+<style>
+    #main{
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10vh;
+    }
+</style>
+
+<body>
+    <div id='main' style="width:80vw;height:80vh     ;"></div>
+</body>
+<script>
+var chartDom = document.getElementById('main');
+var myChart = echarts.init(chartDom);
+var option;
+
+
+option = {
+    title: {
+        text: {%=text%},
+        subtext: {%=subtext%}
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    legend: {
+        data: ['2011年', '2012年']
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: {
+        type: 'value',
+        boundaryGap: [0, 0.01]
+    },
+    yAxis: {
+        type: 'category',
+        data: ['巴西', '印尼', '美国', '印度', '中国', '世界人口(万)']
+    },
+    series: [
+        {
+            name: '2011年',
+            type: 'bar',
+            data: [18203, 23489, 29034, 104970, 131744, 630230]
+        },
+        {
+            name: '2012年',
+            type: 'bar',
+            data: [19325, 23438, 31000, 121594, 134141, 681807]
+        }
+    ]
+};
+
+myChart.setOption(option);
+
+</script>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../templates/echarts.min.js"></script>
+</head>
+
+<style>
+    #main{
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10vh;
+    }
+</style>
+
+<body>
+    <div id='main' style="width:80vw;height:80vh     ;"></div>
+</body>
+<script>
+var chartDom = document.getElementById('main');
+var myChart = echarts.init(chartDom);
+var option;
+
+option = {
+    title: {
+        text: "裸足",
+        subtext: "明日方舟xp分析",
+        left: 10
+    },
+    tooltip: {
+        trigger: 'item'
+    },
+    legend: {
+        orient: 'vertical',
+        left: 'right',
+        type: 'scroll',
+    },
+    series: [
+        {
+            name: "占该角色所有色图的百分比",
+            type: 'pie',
+            radius: '55%',
+            data: [{value: 4, name: "nian (arknights)"},{value: 15, name: "amiya (arknights)"},{value: 21, name: "eunectes (arknights)"},{value: 30, name: "skadi (arknights)"},{value: 11, name: "specter (arknights)"},{value: 4, name: "blaze (arknights)"},{value: 5, name: "pramanix (arknights)"},{value: 13, name: "kal'tsit (arknights)"},{value: 12, name: "eyjafjalla (arknights)"},{value: 17, name: "ch'en (arknights)"},{value: 6, name: "hoshiguma (arknights)"},{value: 4, name: "swire (arknights)"},{value: 8, name: "doctor (arknights)"},{value: 30, name: "texas (arknights)"},{value: 2, name: "saga (arknights)"},{value: 10, name: "mostima (arknights)"},{value: 3, name: "ceobe (arknights)"},{value: 1, name: "angelina (arknights)"},{value: 3, name: "projekt red (arknights)"},{value: 1, name: "skyfire (arknights)"},{value: 4, name: "ifrit (arknights)"},{value: 3, name: "silence (arknights)"},{value: 6, name: "rosa (arknights)"},{value: 28, name: "lappland (arknights)"},{value: 1, name: "whislash (arknights)"},{value: 8, name: "w (arknights)"},{value: 10, name: "blue poison (arknights)"},{value: 6, name: "mudrock (arknights)"},{value: 3, name: "saria (arknights)"},{value: 2, name: "beeswax (arknights)"},{value: 1, name: "carnelian (arknights)"},{value: 2, name: "nightmare (arknights)"},{value: 2, name: "lava (arknights)"},{value: 1, name: "frostnova (arknights)"},{value: 4, name: "tomimi (arknights)"},{value: 9, name: "ptilopsis (arknights)"},{value: 14, name: "schwarz (arknights)"},{value: 1, name: "folinic (arknights)"},{value: 2, name: "skadi (waverider) (arknights)"},{value: 3, name: "skadi the corrupting heart (arknights)"},{value: 5, name: "surtr (arknights)"},{value: 3, name: "dusk (arknights)"},{value: 5, name: "suzuran (arknights)"},{value: 7, name: "magallan (arknights)"},{value: 1, name: "franka (arknights)"},{value: 4, name: "bagpipe (arknights)"},{value: 6, name: "gravel (arknights)"},{value: 1, name: "ceylon (arknights)"},{value: 12, name: "platinum (arknights)"},{value: 1, name: "ansel (arknights)"},{value: 22, name: "exusiai (arknights)"},{value: 3, name: "talulah (arknights)"},{value: 2, name: "sussurro (arknights)"},{value: 3, name: "istina (arknights)"},{value: 10, name: "zima (arknights)"},{value: 1, name: "andreana (arknights)"},{value: 13, name: "siege (arknights)"},{value: 1, name: "frostleaf (arknights)"},{value: 1, name: "astolfo (fate)"},{value: 2, name: "gladiia (arknights)"},{value: 1, name: "ramlethal valentine"},{value: 2, name: "crownslayer (arknights)"},{value: 2, name: "jessica (arknights)"},{value: 1, name: "nearl (arknights)"},{value: 1, name: "grani (arknights)"},{value: 1, name: "snowsant (arknights)"},{value: 3, name: "astesia (arknights)"},{value: 1, name: "purestream (arknights)"},{value: 1, name: "melantha (arknights)"},{value: 1, name: "tomimi (silent night) (arknights)"},{value: 5, name: "dobermann (arknights)"},{value: 1, name: "cliffheart (arknights)"},{value: 2, name: "originium slug (arknights)"},{value: 1, name: "weedy (arknights)"},{value: 1, name: "vermeil (arknights)"},{value: 1, name: "rope (arknights)"},{value: 1, name: "absinthe (arknights)"},{value: 5, name: "shining (arknights)"},{value: 1, name: "myrtle (arknights)"},{value: 2, name: "manticore (arknights)"},{value: 3, name: "gavial (arknights)"},{value: 2, name: "asbestos (arknights)"},{value: 2, name: "sora (arknights)"},{value: 2, name: "tuye (arknights)"},{value: 1, name: "firewatch (arknights)"},{value: 3, name: "nightingale (arknights)"},{value: 5, name: "gummy (arknights)"},{value: 1, name: "savage (arknights)"},{value: 2, name: "conviction (arknights)"},{value: 2, name: "hibiscus (arknights)"},{value: 2, name: "meteorite (arknights)"},{value: 3, name: "platinum (shimmering dew) (arknights)"},{value: 1, name: "mayer (arknights)"},{value: 1, name: "muelsyse (arknights)"},{value: 1, name: "courier (arknights)"},{value: 1, name: "silverash (arknights)"},{value: 2, name: "vigna (arknights)"},{value: 2, name: "gitano (arknights)"},{value: 1, name: "shaw (arknights)"},{value: 1, name: "scavenger (arknights)"},{value: 1, name: "ines (arknights)"}],
+            center:['40%', '50%'],
+            emphasis: {
+                itemStyle: {
+                    shadowBlur: 7,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.2)'
+                }
+            }
+        }
+    ]
+};
+
+myChart.setOption(option);
+
+</script>
+</html>

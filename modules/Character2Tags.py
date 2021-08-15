@@ -2,6 +2,7 @@ from modules.dataanalyzer import databuilder
 import json
 import re
 
+
 class Character2Tags:
     def __init__(self):
         pass
