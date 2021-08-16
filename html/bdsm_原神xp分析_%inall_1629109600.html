@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../templates/echarts.min.js"></script>
+</head>
+
+<style>
+    #main{
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10vh;
+    }
+</style>
+
+<body>
+    <div id='main' style="width:80vw;height:80vh     ;"></div>
+</body>
+<script>
+var chartDom = document.getElementById('main');
+var myChart = echarts.init(chartDom);
+var option;
+
+
+option = {
+    title: {
+        text: "bdsm",
+        subtext: "原神xp分析"
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    calculable: true,
+    toolbox: {
+        show: true,
+        feature: {
+            mark: {show: true},
+            dataView: {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore: {show: true},
+            saveAsImage: {show: true}
+        }
+    },
+    legend: {
+        data: "占该角色所有色图的百分比"
+    },
+    grid: {
+        left: '1%',
+        right: '10%',
+        top: '12%',
+        containLabel: true
+    },
+    yAxis: [
+        {
+            type: 'category',
+            data: ["aether ","zhongli ","mona ","venti ","ayaka ","rosaria ","lisa ","ganyu ","raiden ","tartaglia ","hu tao ","fischl ","noelle ","xinyan ","eula ","paimon ","yanfei ","barbara ","ningguang ","keqing ","amber ","beidou ","slime ","sucrose ","jean ","xiangling ","xingqiu ","klee ","lumine ","baron bunny ","hilichurl "]
+        }
+    ],
+    xAxis: [
+        {
+            type: 'value',
+        }
+    ],
+    dataZoom: [
+        {
+            show: true,
+            start: 0,
+            end: 100,
+            showDataShadow: false,
+        },
+        {
+            type: 'inside',
+            start: 0,
+            end: 100,
+            yAxisIndex: 0
+        },
+        {
+            show: true,
+            start: 94,
+            end: 100,
+            yAxisIndex: 0,
+            width: 30,
+            height: '80%',
+            showDataShadow: true,
+            left: '93%'
+        }
+    ],
+    series: [
+        {
+            name:  "占该角色所有色图的百分比",
+            type: 'bar',
+            data: [0.677,0.913,1.188,1.37,1.429,1.434,1.437,1.493,1.739,1.852,1.927,2.037,2.119,2.273,2.513,2.674,2.817,3.354,3.788,3.854,4.405,4.639,4.878,5.0,6.14,6.364,6.818,7.463,8.06,11.628,14.375]
+        },
+    ]
+};
+
+myChart.setOption(option);
+
+</script>
+</html>

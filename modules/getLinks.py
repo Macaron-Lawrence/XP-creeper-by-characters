@@ -24,14 +24,14 @@ def print33(indexnow, indextotal, title):  # 进度条
 
 def getpagelinksbyid(id, url):  # 通过获取页面的links
     _request = requests.get(host + url + str(id),
-                            headers=heads, timeout=(5, 20))
+                            headers=heads, timeout=(5, 60))
     _content = html.fromstring(_request.content)
     _links = _content.xpath('//*[@id="container"]/main/div[7]/article/a/@href')
     return _links
 
 
 def getpagelinks(url):  # 获取页面的links
-    _request = requests.get(url, headers=heads, timeout=(5, 20))
+    _request = requests.get(url, headers=heads, timeout=(5, 60))
     _content = html.fromstring(_request.content)
     _links = _content.xpath('//*[@id="container"]/main/div[7]/article/a/@href')
     return _links
@@ -65,9 +65,9 @@ def getsearchs(keywords, terns, url):  # 获取搜索关键字
 
 
 def getlinks(__keywords):  # 获取图片页链接
-    keywords = __keywords + rating
+    keywords = __keywords# + rating
     url = '?page=post&s=list&tags='+keywords+'&pid='
-    request = requests.get(host + url + '0', headers=heads, timeout=(5, 20))
+    request = requests.get(host + url + '0', headers=heads, timeout=(5, 60))
     content = html.fromstring(request.content)
     lastpage = content.xpath('//div[@id="paginator"]/a[last()]/@href')[0]
     lastpageid = re.search('(?<=(pid=))\d+', lastpage).group(0)
@@ -82,7 +82,7 @@ def getlinks(__keywords):  # 获取图片页链接
     _counter = 0
     for i in searches:
         _request = requests.get(host + '?page=post&s=list&tags=' +
-                                i + '&pid=' + '0', headers=heads, timeout=(5, 20))
+                                i + '&pid=' + '0', headers=heads, timeout=(5, 60))
         _content = html.fromstring(_request.content)
         _lastpage = _content.xpath('//div[@id="paginator"]/a[last()]/@href')[0]
         _lastpageid = re.search('(?<=(pid=))\d+', _lastpage).group(0)

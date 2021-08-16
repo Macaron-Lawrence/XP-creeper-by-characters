@@ -7,9 +7,12 @@ import math
 import json
 import time
 from modules.headers import headers
+import asyncio
+import aiohttp
 
 heads = headers()
-
+_links = []
+sem = asyncio.Semaphore(10)
 
 def print33(indexnow, indextotal, title):  # 进度条
     A_count = math.floor(indexnow/indextotal*33)
@@ -33,9 +36,24 @@ def getnotexist(lstnew, lstold):
             lst.append(i)
     return lst
 
+async def req(link,heads,callback=None):
+    async with sem:
+        async with aiohttp.ClientSession(headers=heads) as client:
+            async with client.request('GET',link) as resp:
+                _element = await resp.text()
+                _links.append(_element)
 
-def gettagsbycharacter(keywords):
-    __links = getlinks(keywords)
+def fromfile(src):
+    data = ''
+    with open(src,'r',encoding='utf-8') as F:
+        data = json.load(F)
+    return data
+
+def gettagsbycharacter(keywords, src = None):
+    if src:
+        __links = fromfile(src)
+    else:
+        __links = getlinks(keywords)
     links = __links['links']
     tags = {}
     _counter = 0
@@ -46,12 +64,19 @@ def gettagsbycharacter(keywords):
         'uploader': '',
         'char': []
     }
+    loop = asyncio.get_event_loop()
+    tasklist = [req(link,heads) for link in links]
+    future = asyncio.ensure_future(asyncio.wait(tasklist))
+    loop.run_until_complete(future)
+    # for link in links:
+    #     print33(_counter, len(links), link)
+    #     _counter += 1
+    #     request = asyncio.create_task(req(link,heads))
+    #     tasklist.append(request)
 
-    for link in links:
-        print33(_counter, len(links), link)
-        _counter += 1
-        request = requests.get(link, headers=heads, timeout=(5, 20))
-        content = html.fromstring(request.content)
+    i= _links
+    for m in i:
+        content = html.fromstring(m)
         copyright = content.xpath(
             '//*[@id="tag-list"]/li[@class="tag-type-copyright"]/a/text()')
         _source = ifempty(content.xpath(
@@ -97,7 +122,7 @@ def gettagsbycharacter(keywords):
             if _ifcount:tags['original']['count']+=1
 
         (last['source'], last['size'], last['uploader'],
-         last['tags'], last['char']) = (_source, _size, _uploader, _tags,_char)
+        last['tags'], last['char']) = (_source, _size, _uploader, _tags,_char)
     with open('./catch/gettags_' + str(math.floor(time.time())) + '.json','w',encoding='utf-8') as F:
         F.write(json.dumps(tags))
     return tags

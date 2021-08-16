@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../templates/echarts.min.js"></script>
+</head>
+
+<style>
+    #main{
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10vh;
+    }
+</style>
+
+<body>
+    <div id='main' style="width:80vw;height:80vh     ;"></div>
+</body>
+<script>
+var chartDom = document.getElementById('main');
+var myChart = echarts.init(chartDom);
+var option;
+
+
+option = {
+    title: {
+        text: "制服",
+        subtext: "明日方舟xp分析"
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    calculable: true,
+    toolbox: {
+        show: true,
+        feature: {
+            mark: {show: true},
+            dataView: {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore: {show: true},
+            saveAsImage: {show: true}
+        }
+    },
+    legend: {
+        data: "总计"
+    },
+    grid: {
+        left: '1%',
+        right: '10%',
+        top: '12%',
+        containLabel: true
+    },
+    yAxis: [
+        {
+            type: 'category',
+            data: ["istina ","hung ","the emperor ","gummy ","patriot ","gavial ","whislash ","gravel ","ines ","surtr ","mostima ","rope ","cliffheart ","sora ","mountain ","bagpipe ","beagle ","ceylon ","fang ","flamebringer ","glaucus ","lava ","matterhorn ","mousse ","specter ","weedy ","gravel (modeling night) ","robin ","archetto ","tenzin ","mephisto ","silence (frosted breath) ","faust ","severin hawthorn ","pramanix ","frostnova ","franka ","jessica ","silverash ","angelina ","shaw ","alina ","schwarz ","eyjafjalla ","ifrit ","kroos ","silence ","kal'tsit ","hellagur ","kafka ","zima ","skadi ","liskarm ","skyfire ","w ","lappland ","hoshiguma ","swire ","doctor ","exusiai ","amiya ","rosa ","texas ","ch'en ","talulah ","grani ","dobermann ","saria "]
+        }
+    ],
+    xAxis: [
+        {
+            type: 'value',
+        }
+    ],
+    dataZoom: [
+        {
+            show: true,
+            start: 0,
+            end: 100,
+            showDataShadow: false,
+        },
+        {
+            type: 'inside',
+            start: 0,
+            end: 100,
+            yAxisIndex: 0
+        },
+        {
+            show: true,
+            start: 94,
+            end: 100,
+            yAxisIndex: 0,
+            width: 30,
+            height: '80%',
+            showDataShadow: true,
+            left: '93%'
+        }
+    ],
+    series: [
+        {
+            name:  "总计",
+            type: 'bar',
+            data: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,4,4,4,4,5,5,6,7,7,8,9,9,12,14,15,18,27,53]
+        },
+    ]
+};
+
+myChart.setOption(option);
+
+</script>
+</html>

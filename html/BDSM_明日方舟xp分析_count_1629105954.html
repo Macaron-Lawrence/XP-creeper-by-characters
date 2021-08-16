@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../templates/echarts.min.js"></script>
+</head>
+
+<style>
+    #main{
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10vh;
+    }
+</style>
+
+<body>
+    <div id='main' style="width:80vw;height:80vh     ;"></div>
+</body>
+<script>
+var chartDom = document.getElementById('main');
+var myChart = echarts.init(chartDom);
+var option;
+
+
+option = {
+    title: {
+        text: "BDSM",
+        subtext: "明日方舟xp分析"
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    calculable: true,
+    toolbox: {
+        show: true,
+        feature: {
+            mark: {show: true},
+            dataView: {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore: {show: true},
+            saveAsImage: {show: true}
+        }
+    },
+    legend: {
+        data: "总计"
+    },
+    grid: {
+        left: '1%',
+        right: '10%',
+        top: '12%',
+        containLabel: true
+    },
+    yAxis: [
+        {
+            type: 'category',
+            data: ["zima ","silence ","liskarm ","mayer ","eunectes ","popukar ","siege ","cardigan ","shaw ","manticore ","catapult ","courier ","deepcolor ","fang ","hibiscus ","meteor ","snowsant ","platinum (shimmering dew) ","female doctor ","gladiia ","male doctor ","feater ","dobermann ","nian ","eyjafjalla ","crownslayer ","kroos ","hoshiguma ","swire ","gavial ","grani ","blaze ","saria ","rope ","shining ","astesia ","ceylon ","estelle ","ace ","pramanix ","schwarz ","franka ","blue poison ","blemishine ","angelina ","leizi ","specter ","dusk ","istina ","suzuran ","mudrock ","gummy ","whislash ","nearl ","surtr ","mostima ","ansel ","lappland ","platinum ","ptilopsis ","kal'tsit ","warfarin ","magallan ","w ","talulah ","doctor ","closure ","sora ","texas ","exusiai ","skadi ","amiya ","ch'en "]
+        }
+    ],
+    xAxis: [
+        {
+            type: 'value',
+        }
+    ],
+    dataZoom: [
+        {
+            show: true,
+            start: 0,
+            end: 100,
+            showDataShadow: false,
+        },
+        {
+            type: 'inside',
+            start: 0,
+            end: 100,
+            yAxisIndex: 0
+        },
+        {
+            show: true,
+            start: 94,
+            end: 100,
+            yAxisIndex: 0,
+            width: 30,
+            height: '80%',
+            showDataShadow: true,
+            left: '93%'
+        }
+    ],
+    series: [
+        {
+            name:  "总计",
+            type: 'bar',
+            data: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,5,5,5,6,6,6,7,7,7,8,8,9,9,10,15,24]
+        },
+    ]
+};
+
+myChart.setOption(option);
+
+</script>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../templates/echarts.min.js"></script>
+</head>
+
+<style>
+    #main{
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10vh;
+    }
+</style>
+
+<body>
+    <div id='main' style="width:80vw;height:80vh     ;"></div>
+</body>
+<script>
+var chartDom = document.getElementById('main');
+var myChart = echarts.init(chartDom);
+var option;
+
+
+option = {
+    title: {
+        text: "白丝",
+        subtext: "明日方舟xp分析"
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    calculable: true,
+    toolbox: {
+        show: true,
+        feature: {
+            mark: {show: true},
+            dataView: {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore: {show: true},
+            saveAsImage: {show: true}
+        }
+    },
+    legend: {
+        data: "总计"
+    },
+    grid: {
+        left: '1%',
+        right: '10%',
+        top: '12%',
+        containLabel: true
+    },
+    yAxis: [
+        {
+            type: 'category',
+            data: ["dobermann ","vigna ","frostleaf ","liskarm ","whislash ","gravel ","waai fu ","closure ","eunectes ","skyfire ","spot ","meteorite ","mint ","andreana ","beagle ","breeze ","courier ","estelle ","flamebringer ","hellagur ","matterhorn ","meteor ","orchid ","provence ","scavenger ","scene ","sesa ","snowsant ","beanstalk ","dusk ","skadi the corrupting heart ","tomimi (silent night) ","ch'en (ageless afterglow) ","tenzin ","mephisto ","iris ","faust ","leizei ","plume ","utage ","ceobe ","kroos ","jessica ","savage ","patriot ","nearl ","surtr ","cardigan ","shaw ","podenco ","ansel ","deepcolor ","hibiscus ","melantha ","male doctor ","archetto ","lava the purgatory ","feater ","perfumer ","talulah ","franka ","swire ","projekt red ","tomimi ","thorns ","shining ","bison ","cuora ","elysium ","lava ","mousse ","myrrh ","carnelian ","flint ","amiya (fresh fastener) ","sussurro ","rosmontis ","silence ","grani ","nightingale ","reed ","leonhardt ","absinthe ","specter ","w ","mudrock ","folinic ","blue poison ","blemishine ","myrtle ","leto ","the emperor ","saria ","siege ","astesia ","shirayuki ","vermeil ","nian ","gavial ","warfarin ","whisperain ","ifrit ","eyjafjalla ","hoshiguma ","rosa ","magallan ","silverash ","nightmare ","ceylon ","april ","angelina ","leizi ","mostima ","skadi ","platinum ","cliffheart ","beeswax ","bagpipe ","frostnova ","manticore ","schwarz ","popukar ","croissant ","pramanix ","kal'tsit ","gummy ","ptilopsis ","ch'en ","blaze ","saga ","lappland ","doctor ","zima ","istina ","exusiai ","shamare ","sora ","texas ","amiya ","suzuran "]
+        }
+    ],
+    xAxis: [
+        {
+            type: 'value',
+        }
+    ],
+    dataZoom: [
+        {
+            show: true,
+            start: 0,
+            end: 100,
+            showDataShadow: false,
+        },
+        {
+            type: 'inside',
+            start: 0,
+            end: 100,
+            yAxisIndex: 0
+        },
+        {
+            show: true,
+            start: 94,
+            end: 100,
+            yAxisIndex: 0,
+            width: 30,
+            height: '80%',
+            showDataShadow: true,
+            left: '93%'
+        }
+    ],
+    series: [
+        {
+            name:  "总计",
+            type: 'bar',
+            data: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,6,6,6,6,6,7,7,7,7,8,8,9,9,9,10,10,10,10,10,11,11,12,14,14,14,14,15,17,17,19,20,21,22,22,23,25,26,27,28,29,29,30,42,42,57,60,63,83,138]
+        },
+    ]
+};
+
+myChart.setOption(option);
+
+</script>
+</html>

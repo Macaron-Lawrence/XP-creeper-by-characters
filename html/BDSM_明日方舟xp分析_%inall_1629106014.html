@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../templates/echarts.min.js"></script>
+</head>
+
+<style>
+    #main{
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10vh;
+    }
+</style>
+
+<body>
+    <div id='main' style="width:80vw;height:80vh     ;"></div>
+</body>
+<script>
+var chartDom = document.getElementById('main');
+var myChart = echarts.init(chartDom);
+var option;
+
+
+option = {
+    title: {
+        text: "BDSM",
+        subtext: "明日方舟xp分析"
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    calculable: true,
+    toolbox: {
+        show: true,
+        feature: {
+            mark: {show: true},
+            dataView: {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore: {show: true},
+            saveAsImage: {show: true}
+        }
+    },
+    legend: {
+        data: "占该角色所有色图的百分比"
+    },
+    grid: {
+        left: '1%',
+        right: '10%',
+        top: '12%',
+        containLabel: true
+    },
+    yAxis: [
+        {
+            type: 'category',
+            data: ["siege ","silence ","hoshiguma ","eunectes ","zima ","saria ","nian ","eyjafjalla ","schwarz ","lappland ","feater ","surtr ","angelina ","liskarm ","texas ","blue poison ","blaze ","skadi ","mostima ","pramanix ","swire ","exusiai ","doctor ","shaw ","amiya ","mudrock ","manticore ","specter ","gladiia ","shining ","w ","grani ","kal'tsit ","platinum (shimmering dew) ","gavial ","suzuran ","mayer ","ceylon ","meteor ","dusk ","hibiscus ","courier ","female doctor ","ptilopsis ","ch'en ","astesia ","gummy ","platinum ","kroos ","magallan ","dobermann ","blemishine ","fang ","istina ","franka ","cardigan ","snowsant ","popukar ","whislash ","nearl ","rope ","sora ","male doctor ","ansel ","talulah ","warfarin ","deepcolor ","estelle ","leizi ","crownslayer ","catapult ","closure ","ace "]
+        }
+    ],
+    xAxis: [
+        {
+            type: 'value',
+        }
+    ],
+    dataZoom: [
+        {
+            show: true,
+            start: 0,
+            end: 100,
+            showDataShadow: false,
+        },
+        {
+            type: 'inside',
+            start: 0,
+            end: 100,
+            yAxisIndex: 0
+        },
+        {
+            show: true,
+            start: 94,
+            end: 100,
+            yAxisIndex: 0,
+            width: 30,
+            height: '80%',
+            showDataShadow: true,
+            left: '93%'
+        }
+    ],
+    series: [
+        {
+            name:  "占该角色所有色图的百分比",
+            type: 'bar',
+            data: [0.119,0.223,0.249,0.249,0.261,0.27,0.282,0.376,0.408,0.413,0.433,0.442,0.447,0.45,0.495,0.51,0.517,0.519,0.545,0.602,0.621,0.63,0.642,0.645,0.692,0.696,0.699,0.716,0.741,0.763,0.799,0.881,0.897,0.909,0.917,0.973,1.02,1.093,1.111,1.132,1.22,1.389,1.389,1.453,1.454,1.493,1.504,1.572,1.575,1.596,1.626,1.648,1.695,1.702,1.744,1.754,1.786,1.818,1.852,1.869,2.299,2.516,2.564,3.226,3.5,3.636,3.704,4.167,4.412,5.0,5.0,7.339,40.0]
+        },
+    ]
+};
+
+myChart.setOption(option);
+
+</script>
+</html>

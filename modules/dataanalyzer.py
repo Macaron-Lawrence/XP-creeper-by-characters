@@ -2,6 +2,7 @@ import json
 import math
 import time
 from modules.getTags import gettagsbycharacter
+import asyncio
 # data = {
 #     'theresa (arknights)': {
 #         'count': 1,
@@ -24,8 +25,8 @@ def timber(data):
             _data[char]['total'] +=1
     return _data
 
-def databuilder(keywords):
-    __data = gettagsbycharacter(keywords)
+def databuilder(keywords,src=None):
+    __data =  gettagsbycharacter(keywords,src)
     # __data = gettagsbycharacter(keywords)
     # with open('./catch/gettags_1628777267.json') as a:
     #     __data = json.load(a)
@@ -37,7 +38,8 @@ def databuilder(keywords):
             _tag = data[char]['tags'][tags]
             ___1 = data[char]['count']
             _data[char][tags] = [_tag,round(_tag/data[char]['count']*100,3),round(_tag/data[char]['total']*100,3)]  #[数量，占作品比，占总tag数量比]
-    with open('./catch/dataanalyze_' + keywords + '#'+str(math.floor(time.time()))+'.json','w',encoding='utf-8') as F:
+    _name = './catch/dataanalyze_' + keywords.replace(':','_') + '#' + str(math.floor(time.time())) + '.json'
+    with open(_name,'w',encoding='utf-8') as F:
         F.write(json.dumps(_data))
-    return _data
+        return _data
 
